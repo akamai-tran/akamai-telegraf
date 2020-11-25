@@ -51,7 +51,7 @@ ENABLED_CPCODES=all
 ```
 create docker volumes ( so data persists across docker restarts )
 ```
-$ for i in telegraf grafana influxdb; do docker volume create akamai-${i}-volume ; done
+$ for i in grafana influxdb; do docker volume create akamai-${i}-volume ; done
 ```
 
 Run Docker Compose inside the folder of the cloned git repo
