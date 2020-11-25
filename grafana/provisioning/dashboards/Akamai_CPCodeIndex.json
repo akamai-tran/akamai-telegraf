@@ -1,0 +1,865 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 2,
+  "iteration": 1606322543114,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "title": "Notes",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 10,
+      "options": {
+        "content": "CPCode data is gathered weekly for updates.\nTelegraf Enabled CPCodes listings are based on cpcodes available to the \"todaytraffic-by-time\" metric.\nData for CPCodes comes from the following API:\n- cprg - v1 - https://developer.akamai.com/api/core_features/cp_codes_reporting_groups/v1.html",
+        "mode": "markdown"
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 6,
+      "title": "CPCode Data",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "accountId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 132
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "contractId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 144
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpcode"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 99
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpcodeNameNum"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 282
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "accountId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "contractId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcodeName"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcodeNameNum"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "productId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "productName"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "cpcodes-index",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "fakemetric"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpcode",
+              "operator": "=~",
+              "value": "/^$cpcodes_selected$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Selected CPCodes",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "distinct": true,
+              "fakemetric": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "cpcodeName": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "accountId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 132
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "contractId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 144
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpcode"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 99
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpcodeNameNum"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 282
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 4,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "accountId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "contractId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcodeName"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcodeNameNum"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "productId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "productName"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "cpcodes-index",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "fakemetric"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpcode",
+              "operator": "=~",
+              "value": "/^$cpcodes_available$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Telegraf Enabled CPCodes",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "distinct": true,
+              "fakemetric": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "cpcodeName": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "accountId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 132
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "contractId"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 144
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpcode"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 99
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cpcodeNameNum"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 282
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 3,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "accountId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "contractId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcodeName"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "cpcodeNameNum"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "productId"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "productName"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "cpcodes-index",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "fakemetric"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "accountId",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            },
+            {
+              "condition": "AND",
+              "key": "productName",
+              "operator": "=~",
+              "value": "/^$productname$/"
+            },
+            {
+              "condition": "AND",
+              "key": "contractId",
+              "operator": "=~",
+              "value": "/^$contractid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPCodes on Account: $accountid - Contract: $contractid - Product: $productname ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "distinct": true,
+              "fakemetric": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "cpcodeName": ""
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [
+    "Akamai"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"todaytraffic-by-time\" WITH KEY = \"cpcode\"",
+        "error": null,
+        "hide": 2,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "cpcodes_available",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"todaytraffic-by-time\" WITH KEY = \"cpcode\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcodeNameNum\" WHERE \"cpcode\" =~ /$cpcodes_available/ ",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "CPCode Selection",
+        "multi": true,
+        "name": "cpcodes_selection",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcodeNameNum\" WHERE \"cpcode\" =~ /$cpcodes_available/ ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcode\" WHERE \"cpcodeNameNum\" =~ /$cpcodes_selection/",
+        "error": null,
+        "hide": 2,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "cpcodes_selected",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcode\" WHERE \"cpcodeNameNum\" =~ /$cpcodes_selection/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"accountId\"",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "AccountId",
+        "multi": false,
+        "name": "accountid",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"accountId\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"productName\"",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Product Name",
+        "multi": false,
+        "name": "productname",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"productName\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"contractId\"",
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": "Contract Id",
+        "multi": false,
+        "name": "contractid",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"contractId\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now/y",
+    "to": "now/y"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Akamai - CPCode Index",
+  "uid": "uES2whOMz",
+  "version": 1
+}

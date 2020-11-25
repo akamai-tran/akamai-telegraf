@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+ - name: InfluxDB
+   type: influxdb
+   access: proxy
+   database: ${INFLUXDB_DB}
+   user: ${INFLUXDB_USER}
+   secureJsonData:
+     password: ${INFLUXDB_USER_PASSWORD}
+   url: http://akamai-influxdb:8086
+   jsonData:
+     timeInterval: "10s"
+   isDefault: true
+   
+

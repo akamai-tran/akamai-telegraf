@@ -1,0 +1,2892 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 12,
+  "iteration": 1600376150057,
+  "links": [
+    {
+      "$$hashKey": "object:10769",
+      "icon": "external link",
+      "tags": [
+        "Akamai"
+      ],
+      "type": "dashboards"
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 13,
+      "panels": [],
+      "title": "Notes",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 15,
+      "options": {
+        "content": "Data on this Dashboard should be final data and will only appear in 1 to 2 days in a rears. Data for these panel come from the following OPEN APIs\n- enhancedtraffic-by-country - v1 - https://developer.akamai.com/api/core_features/reporting/enhancedtraffic-by-country.html\n- bytes-by-time - v1 - https://developer.akamai.com/api/core_features/reporting/bytes-by-time.html\n- hits-by-time - v1 - https://developer.akamai.com/api/core_features/reporting/hits-by-time.html\n- bytes-by-cpode - v1 - https://developer.akamai.com/api/core_features/reporting/bytes-by-cpcode.html\n- hits-by-cpcode - v1 - https://developer.akamai.com/api/core_features/reporting/hits-by-cpcode.html",
+        "mode": "markdown"
+      },
+      "pluginVersion": "7.1.0",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 11,
+      "panels": [],
+      "title": "Peak Data by All CPCode",
+      "type": "row"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 0,
+        "y": 7
+      },
+      "id": 3,
+      "interval": "1d",
+      "links": [],
+      "pageSize": 15,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:14796",
+          "alias": "Date",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:14797",
+          "alias": "Bytes Served",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "$$hashKey": "object:14798",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "country"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "enhancedtraffic-by-country",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "edgeBytes"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpcode",
+              "operator": "=",
+              "value": "all"
+            },
+            {
+              "condition": "AND",
+              "key": "accountid",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peak Day - Edge Volume by Country",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 4,
+        "y": 7
+      },
+      "id": 5,
+      "interval": "1d",
+      "links": [],
+      "pageSize": 15,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:14684",
+          "alias": "Date",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:14685",
+          "alias": "Hits Served",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14686",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "country"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "enhancedtraffic-by-country",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "edgeHits"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpcode",
+              "operator": "=",
+              "value": "all"
+            },
+            {
+              "condition": "AND",
+              "key": "accountid",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peak Day - Edge Hits by Country",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 8,
+        "y": 7
+      },
+      "id": 21,
+      "interval": "1d",
+      "links": [],
+      "pageSize": 15,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:14095",
+          "alias": "Date",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:14096",
+          "alias": "Bytes Served",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "$$hashKey": "object:14285",
+          "alias": "CPCode",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "cpcode",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14097",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "bytes-by-cpcode",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "edgeBytes"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpname",
+              "operator": "=",
+              "value": "allcpcodes"
+            },
+            {
+              "condition": "AND",
+              "key": "accountid",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peak Day - Edge Volume by CPCode",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 12,
+        "y": 7
+      },
+      "id": 22,
+      "interval": "1d",
+      "links": [],
+      "pageSize": 15,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:14095",
+          "alias": "Date",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:14096",
+          "alias": "Bytes Served",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "$$hashKey": "object:14285",
+          "alias": "CPCode",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "cpcode",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14097",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "bytes-by-cpcode",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "originBytes"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpname",
+              "operator": "=",
+              "value": "allcpcodes"
+            },
+            {
+              "condition": "AND",
+              "key": "accountid",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peak Day - Origin Volume by CPCode",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 16,
+        "y": 7
+      },
+      "id": 23,
+      "interval": "1d",
+      "links": [],
+      "pageSize": 15,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:14095",
+          "alias": "Date",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:14096",
+          "alias": "Hits Served",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14285",
+          "alias": "CPCode",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "cpcode",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14097",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "hits-by-cpcode",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "edgeHits"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpname",
+              "operator": "=",
+              "value": "allcpcodes"
+            },
+            {
+              "condition": "AND",
+              "key": "accountid",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peak Day - Edge Hits by CPCode",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "cacheTimeout": null,
+      "columns": [],
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fontSize": "90%",
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 20,
+        "y": 7
+      },
+      "id": 24,
+      "interval": "1d",
+      "links": [],
+      "pageSize": 15,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:14095",
+          "alias": "Date",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "$$hashKey": "object:14096",
+          "alias": "Hits Served",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "max",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14285",
+          "alias": "CPCode",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "cpcode",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:14097",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "cpcode"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "hits-by-cpcode",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "originHits"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "cpname",
+              "operator": "=",
+              "value": "allcpcodes"
+            },
+            {
+              "condition": "AND",
+              "key": "accountid",
+              "operator": "=~",
+              "value": "/^$accountid$/"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Peak Day - Origin Hits by CPCode",
+      "transform": "table",
+      "type": "table-old"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 17,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 0,
+            "y": 24
+          },
+          "id": 7,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:13212",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:13213",
+              "alias": "Traffic - Bits per Second",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "bps"
+            },
+            {
+              "$$hashKey": "object:13214",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13215",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13216",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-time",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "edgeBitsPerSecond"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Edge Traffic by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        },
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 8,
+            "y": 24
+          },
+          "id": 26,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:13387",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:13388",
+              "alias": "Traffic - Bits per Second",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "bps"
+            },
+            {
+              "$$hashKey": "object:13389",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13390",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13391",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-time",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "midgressBitsPerSecond"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Midgress Traffic by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        },
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 16,
+            "y": 24
+          },
+          "id": 20,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:13387",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:13388",
+              "alias": "Traffic - Bits per Second",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "bps"
+            },
+            {
+              "$$hashKey": "object:13389",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13390",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13391",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-time",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "originBitsPerSecond"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Origin Traffic by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        }
+      ],
+      "title": "Peak Traffic Day by CPCode Selection",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 29,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 0,
+            "y": 25
+          },
+          "id": 19,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:12231",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:12232",
+              "alias": "Volume",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "decbytes"
+            },
+            {
+              "$$hashKey": "object:12233",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12234",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12235",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "edgeBytes"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Edge Volume by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        },
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 8,
+            "y": 25
+          },
+          "id": 8,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:12511",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:12512",
+              "alias": "Volume",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "decbytes"
+            },
+            {
+              "$$hashKey": "object:12513",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12514",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12515",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "midgressBytes"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Midgress Volume by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        },
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 16,
+            "y": 25
+          },
+          "id": 25,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:12511",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:12512",
+              "alias": "Volume",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "decbytes"
+            },
+            {
+              "$$hashKey": "object:12513",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12514",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12515",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "originBytes"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Origin Volume by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        }
+      ],
+      "title": "Peak Volume Day by CPCode Selection",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 33,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 0,
+            "y": 26
+          },
+          "id": 34,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:12231",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:12232",
+              "alias": "Hits",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12233",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12234",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12235",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "hits-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "edgeHits"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Edge Hits by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        },
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 8,
+            "y": 26
+          },
+          "id": 35,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:12231",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:12232",
+              "alias": "Hits",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "max",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12233",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12234",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:12235",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "hits-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "originHits"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "max"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpcode",
+                  "operator": "!=",
+                  "value": "all"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peak Day - Origin Hits by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        }
+      ],
+      "title": "Peak Hits Day by CPCode Selection",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 31,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 0,
+            "y": 27
+          },
+          "id": 4,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:13737",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:13738",
+              "alias": "Offload Min",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "min",
+              "thresholds": [],
+              "type": "number",
+              "unit": "percent"
+            },
+            {
+              "$$hashKey": "object:13739",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13740",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13741",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "bytes-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "bytesOffload"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "min"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Minimum Day - Offload Volume by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        },
+        {
+          "cacheTimeout": null,
+          "columns": [],
+          "datasource": null,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {}
+            },
+            "overrides": []
+          },
+          "fontSize": "90%",
+          "gridPos": {
+            "h": 15,
+            "w": 8,
+            "x": 8,
+            "y": 27
+          },
+          "id": 27,
+          "interval": "1d",
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 3,
+            "desc": true
+          },
+          "styles": [
+            {
+              "$$hashKey": "object:13737",
+              "alias": "Timestamp",
+              "align": "auto",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "$$hashKey": "object:13738",
+              "alias": "Offload Min",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "min",
+              "thresholds": [],
+              "type": "number",
+              "unit": "percent"
+            },
+            {
+              "$$hashKey": "object:13739",
+              "alias": "CPCode",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "mappingType": 1,
+              "pattern": "cpcode",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13740",
+              "alias": "CPCode Name",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "cpname",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "$$hashKey": "object:13741",
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "groupBy": [
+                {
+                  "params": [
+                    "cpcode"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "cpname"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "hits-by-cpcode",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(\"edgeBytes\") FROM \"enhancedtraffic-by-country\" WHERE (\"cpcode\" = 'all') AND $timeFilter GROUP BY \"country\"",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "hitsOffload"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "min"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "cpname",
+                  "operator": "!=",
+                  "value": "allcpcodes"
+                },
+                {
+                  "condition": "AND",
+                  "key": "cpcode",
+                  "operator": "=~",
+                  "value": "/^$cpcode$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "accountid",
+                  "operator": "=~",
+                  "value": "/^$accountid$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Minimum Day - Offload Hits by CPCode",
+          "transform": "table",
+          "type": "table-old"
+        }
+      ],
+      "title": "Minimum Offload Day by CPCode",
+      "type": "row"
+    }
+  ],
+  "schemaVersion": 26,
+  "style": "dark",
+  "tags": [
+    "Akamai"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"bytes-by-cpcode\" WITH KEY = \"accountid\"",
+        "hide": 0,
+        "includeAll": true,
+        "label": "AccountId",
+        "multi": false,
+        "name": "accountid",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"bytes-by-cpcode\" WITH KEY = \"accountid\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"todaytraffic-by-time\" WITH KEY = \"cpcode\"",
+        "hide": 2,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "cpcodes_available",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"todaytraffic-by-time\" WITH KEY = \"cpcode\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "tags": [],
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcodeNameNum\" WHERE \"cpcode\" =~ /$cpcodes_available/ ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "CPCode Selection",
+        "multi": true,
+        "name": "cpcodes_selection",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcodeNameNum\" WHERE \"cpcode\" =~ /$cpcodes_available/ ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "InfluxDB",
+        "definition": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcode\" WHERE \"cpcodeNameNum\" =~ /$cpcodes_selection/",
+        "hide": 2,
+        "includeAll": true,
+        "label": "",
+        "multi": true,
+        "name": "cpcode",
+        "options": [],
+        "query": "show TAG VALUES on telegraf FROM \"cpcodes-index\" WITH KEY = \"cpcode\" WHERE \"cpcodeNameNum\" =~ /$cpcodes_selection/",
+        "refresh": 1,
+        "regex": "/(\\d+.)/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1M/M",
+    "to": "now-1M/M"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Akamai - Peak Data",
+  "uid": "e7vicgSMz",
+  "version": 10
+}
