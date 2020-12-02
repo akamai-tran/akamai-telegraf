@@ -63,9 +63,9 @@ Navigate to grafana instance on your system
 http://localhost:3000
 
 Default username/password: admin/admin
-![Dashboard List](/images/dashboard_list.jpeg)
-![Realtime Traffic Dashboard](/images/realtime_traffic.jpeg)
-![Historical Traffic Dashboard](/images/historical_traffic.jpeg)
+![Dashboard List](/images/dashboard_list.jpg)
+![Realtime Traffic Dashboard](/images/realtime_traffic.jpg)
+![Historical Traffic Dashboard](/images/historical_traffic.jpg)
 
 # Important locations inside the akamai-telegraf container
 - /tmp/AKAMAI
